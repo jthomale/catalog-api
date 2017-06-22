@@ -9,4 +9,4 @@ before_script:
 #  - ./docker-compose.sh run --rm manage-test migrate --database=default
 #  - ./docker-compose.sh run --rm manage-test migrate --database=sierra
 
-script: sleep 30 && ls -al docker_data/redis-appdata-test/ && ls -al docker_data/redis-appdata-test/logs/ && cat docker_data/redis-appdata-test/logs/log.txt
+script: ./docker-compose.sh run redis-appdata-test ls -al /project/
