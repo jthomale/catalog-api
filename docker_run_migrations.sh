@@ -19,6 +19,8 @@ echo "Running migrations for sierra-db-test"
 echo "*************************************"
 echo
 docker-compose run --rm manage-test migrate --database=sierra
+echo "Installing sierra-db-test fixtures..."
+docker-compose run --rm manage-test loaddata --app=base --database=sierra bibfixtures metadatafixtures
 echo
 echo "*************************************"
 echo "Running migrations for default-db-dev"
