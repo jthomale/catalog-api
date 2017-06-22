@@ -152,7 +152,7 @@ services:
     working_dir: /project/catalog-api/
     networks:
       - testing
-    entrypoint: wait-for-it.sh -t 30 default-db-test:3306 -- wait-for-it.sh -t 30 sierra-db-test:5432 -- wait-for-it.sh -t 30 solr-test:8983 -- wait-for-it.sh -t 30 redis-appdata-test:6379 -- py.test
+    entrypoint: wait-for-it.sh -t 60 default-db-test:3306 -- wait-for-it.sh -t 60 sierra-db-test:5432 -- wait-for-it.sh -t 60 solr-test:8983 -- wait-for-it.sh -t 60 redis-appdata-test:6379 -- py.test
 
   manage-dev:
     build: .
