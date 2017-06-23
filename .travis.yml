@@ -8,24 +8,5 @@ before_script:
   # - ./docker-compose.sh run --rm manage-test migrate --database=default
   # - ./docker-compose.sh run --rm manage-test migrate --database=sierra
 script:
-  - ./docker-compose.sh run --rm -u root --entrypoint="sh -c 'echo testing >> /project/logs/test.txt'" redis-appdata-test
-  - ./docker-compose.sh run --rm -u root --entrypoint="sh -c 'echo testing >> /project/data/test.txt'" redis-appdata-test
-  - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/solr/instances/solr/bibdata/data/test.txt'" solr-test
-  - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/media/test.txt'" app
-
-#script: ./docker-compose.sh run --rm test
-after_script:
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/" redis-appdata-test
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/logs/" redis-appdata-test
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/data/" redis-appdata-test
-  - ls -al docker_data/redis_appdata_test/
-  - ls -al docker_data/redis_appdata_test/logs/
-  - ls -al docker_data/redis_appdata_test/data/
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/solr/instances/solr/bibdata/" solr-test
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/solr/instances/solr/bibdata/data/" solr-test
-  - ls -al docker_data/solr_test/
-  - ls -al docker_data/solr_test/bibdata_data/
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/" app
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/media/" app
-  - ls -al docker_data/app/
-  - ls -al docker_data/app/media/
+  - docker info
+  - id ${USER}
