@@ -7,10 +7,10 @@ before_script:
   - ./build_travis_settings.sh
   # - ./docker-compose.sh run --rm manage-test migrate --database=default
   # - ./docker-compose.sh run --rm manage-test migrate --database=sierra
-  - ./docker-compose.sh run --rm -u redis redis-appdata-test "echo testing > /project/logs/test.txt"
-  - ./docker-compose.sh run --rm -u redis redis-appdata-test "echo testing > /project/data/test.txt"
-  - ./docker-compose.sh run --rm solr-test "echo testing > /project/solr/instances/solr/bibdata/data/test.txt"
-  - ./docker-compose.sh run --rm app "echo testing > /project/media/test.txt"
+  - ./docker-compose.sh run --rm -u redis --entrypoint="sh -c 'echo testing >> /project/logs/test.txt'" redis-appdata-test
+  - ./docker-compose.sh run --rm -u redis --entrypoint="sh -c 'echo testing >> /project/data/test.txt'" redis-appdata-test
+  - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/solr/instances/solr/bibdata/data/test.txt'" solr-test
+  - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/media/test.txt'" app
 
 #script: ./docker-compose.sh run --rm test
 script:
