@@ -53,7 +53,7 @@ services:
       - ./docker_data/solr_dev/haystack_data:/project/solr/instances/solr/haystack/data
       - ./docker_data/solr_dev/marc_data:/project/solr/instances/solr/marc/data
     working_dir: /project/solr/instances
-    user: "${USER:-999}"
+    user: "999"
     command: java -jar /project/solr/instances/start.jar -Djetty.port=8983
     ports:
       - "${SOLR_HOST:-127.0.0.1}:${SOLR_PORT:-8983}:8983"
@@ -69,7 +69,7 @@ services:
       - ./docker_data/solr_test/haystack_data:/project/solr/instances/solr/haystack/data
       - ./docker_data/solr_test/marc_data:/project/solr/instances/solr/marc/data
     working_dir: /project/solr/instances
-    user: "${USER:-999}"
+    user: "999"
     command: java -jar /project/solr/instances/start.jar -Djetty.port=8983
     ports:
       - "${TEST_SOLR_HOST:-127.0.0.1}:${TEST_SOLR_PORT:-8883}:8983"
