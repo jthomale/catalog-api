@@ -15,35 +15,17 @@ script:
 
 #script: ./docker-compose.sh run --rm test
 after_script:
-  - echo "**** redis-appdata-test - /project/"
-  - ./docker-compose.sh run --rm redis-appdata-test "ls -al /project/"
-  - echo "**** redis-appdata-test - /project/logs/"
-  - ./docker-compose.sh run --rm redis-appdata-test "ls -al /project/logs/"
-  - echo "**** redis-appdata-test - /project/data/"
-  - ./docker-compose.sh run --rm redis-appdata-test "ls -al /project/data/"
-  - echo ""
-  - echo "**** host - docker_data/redis_appdata_test/"
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/" redis-appdata-test
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/logs/" redis-appdata-test
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/data/" redis-appdata-test
   - ls -al docker_data/redis_appdata_test/
-  - echo "**** host - docker_data/redis_appdata_test/logs/"
   - ls -al docker_data/redis_appdata_test/logs/
-  - echo "**** host - docker_data/redis_appdata_test/data/"
   - ls -al docker_data/redis_appdata_test/data/
-  - echo ""
-  - echo "**** solr-test - bibdata/"
-  - ./docker-compose.sh run --rm solr-test "ls -al /project/solr/instances/solr/bibdata/"
-  - echo "**** solr-test - bibdata/data/"
-  - ./docker-compose.sh run --rm solr-test "ls -al /project/solr/instances/solr/bibdata/data/"
-  - echo ""
-  - echo "**** host - docker_data/solr_test/"
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/solr/instances/solr/bibdata/" solr-test
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/solr/instances/solr/bibdata/data/" solr-test
   - ls -al docker_data/solr_test/
-  - echo "**** host - docker_data/solr_test/bibdata_data/"
   - ls -al docker_data/solr_test/bibdata_data/
-  - echo ""
-  - echo "**** app - /project"
-  - ./docker-compose.sh run --rm app "ls -al /project/"
-  - echo "**** app - /project/media"
-  - ./docker-compose.sh run --rm app "ls -al /project/media/"
-  - echo "**** host - docker_data/app/"
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/" app
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/media/" app
   - ls -al docker_data/app/
-  - echo "**** host - docker_data/app/media/"
   - ls -al docker_data/app/media/
