@@ -7,19 +7,19 @@ before_script:
   - ./build_travis_settings.sh
   # - ./docker-compose.sh run --rm manage-test migrate --database=default
   # - ./docker-compose.sh run --rm manage-test migrate --database=sierra
-  - ./docker-compose.sh run --rm -u redis redis-appdata-test echo "testing" > /project/logs/test.txt
-  - ./docker-compose.sh run --rm -u redis redis-appdata-test echo "testing" > /project/data/test.txt
-  - ./docker-compose.sh run --rm solr-test echo "testing" > /project/solr/instances/solr/bibdata/data/test.txt
-  - ./docker-compose.sh run --rm app echo "testing" > /project/media/test.txt
+  - ./docker-compose.sh run --rm -u redis redis-appdata-test "echo testing > /project/logs/test.txt"
+  - ./docker-compose.sh run --rm -u redis redis-appdata-test "echo testing > /project/data/test.txt"
+  - ./docker-compose.sh run --rm solr-test "echo testing > /project/solr/instances/solr/bibdata/data/test.txt"
+  - ./docker-compose.sh run --rm app "echo testing > /project/media/test.txt"
 
 #script: ./docker-compose.sh run --rm test
 script:
   - echo "**** redis-appdata-test - /project/"
-  - ./docker-compose.sh run --rm redis-appdata-test ls -al /project/
+  - ./docker-compose.sh run --rm redis-appdata-test "ls -al /project/"
   - echo "**** redis-appdata-test - /project/logs/"
-  - ./docker-compose.sh run --rm redis-appdata-test ls -al /project/logs/
+  - ./docker-compose.sh run --rm redis-appdata-test "ls -al /project/logs/"
   - echo "**** redis-appdata-test - /project/data/"
-  - ./docker-compose.sh run --rm redis-appdata-test ls -al /project/data/
+  - ./docker-compose.sh run --rm redis-appdata-test "ls -al /project/data/"
   - echo ""
   - echo "**** host - docker_data/redis_appdata_test/"
   - ls -al docker_data/redis_appdata_test/
@@ -29,9 +29,9 @@ script:
   - ls -al docker_data/redis_appdata_test/data/
   - echo ""
   - echo "**** solr-test - bibdata/"
-  - ./docker-compose.sh run --rm solr-test ls -al /project/solr/instances/solr/bibdata/
+  - ./docker-compose.sh run --rm solr-test "ls -al /project/solr/instances/solr/bibdata/"
   - echo "**** solr-test - bibdata/data/"
-  - ./docker-compose.sh run --rm solr-test ls -al /project/solr/instances/solr/bibdata/data/
+  - ./docker-compose.sh run --rm solr-test "ls -al /project/solr/instances/solr/bibdata/data/"
   - echo ""
   - echo "**** host - docker_data/solr_test/"
   - ls -al docker_data/solr_test/
@@ -39,9 +39,9 @@ script:
   - ls -al docker_data/solr_test/bibdata_data/
   - echo ""
   - echo "**** app - /project"
-  - ./docker-compose.sh run --rm app ls -al /project/
+  - ./docker-compose.sh run --rm app "ls -al /project/"
   - echo "**** app - /project/media"
-  - ./docker-compose.sh run --rm app ls -al /project/media/
+  - ./docker-compose.sh run --rm app "ls -al /project/media/"
   - echo "**** host - docker_data/app/"
   - ls -al docker_data/app/
   - echo "**** host - docker_data/app/media/"
