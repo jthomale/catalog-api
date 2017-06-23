@@ -1,6 +1,6 @@
 FROM python:2.7
 
-RUN adduser --disabled-password --gecos '' appuser
+RUN adduser --disabled-password --gecos '' -u 999 appuser
 
 ENV PYTHONPATH /project/catalog-api
 ENV LOG_FILE_DIR /project/logs

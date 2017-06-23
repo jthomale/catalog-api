@@ -53,6 +53,7 @@ services:
       - ./docker_data/solr_dev/haystack_data:/project/solr/instances/solr/haystack/data
       - ./docker_data/solr_dev/marc_data:/project/solr/instances/solr/marc/data
     working_dir: /project/solr/instances
+    user: "${USER:-999}"
     command: java -jar /project/solr/instances/start.jar -Djetty.port=8983
     ports:
       - "${SOLR_HOST:-127.0.0.1}:${SOLR_PORT:-8983}:8983"
@@ -68,6 +69,7 @@ services:
       - ./docker_data/solr_test/haystack_data:/project/solr/instances/solr/haystack/data
       - ./docker_data/solr_test/marc_data:/project/solr/instances/solr/marc/data
     working_dir: /project/solr/instances
+    user: "${USER:-999}"
     command: java -jar /project/solr/instances/start.jar -Djetty.port=8983
     ports:
       - "${TEST_SOLR_HOST:-127.0.0.1}:${TEST_SOLR_PORT:-8883}:8983"
@@ -77,8 +79,8 @@ services:
   redis-celery:
     image: redis:3.2
     volumes:
-      - ./docker_data/redis-celery/data:/project/data
-      - ./docker_data/redis-celery/logs:/project/logs
+      - ./docker_data/redis_celery/data:/project/data
+      - ./docker_data/redis_celery/logs:/project/logs
     ports:
       - "${REDIS_CELERY_HOST:-127.0.0.1}:${REDIS_CELERY_PORT:-6379}:6379"
     command: redis-server ${REDIS_CELERY_CONF_FILE:---dir /project/data --logfile /project/logs/log.txt --appendonly yes}
@@ -89,8 +91,8 @@ services:
   redis-appdata-dev:
     image: redis:3.2
     volumes:
-      - ./docker_data/redis-appdata-dev/data:/project/data
-      - ./docker_data/redis-appdata-dev/logs:/project/logs
+      - ./docker_data/redis_appdata_dev/data:/project/data
+      - ./docker_data/redis_appdata_dev/logs:/project/logs
     ports:
       - "${REDIS_APPDATA_HOST:-127.0.0.1}:${REDIS_APPDATA_PORT:-6380}:6379"
     command: redis-server ${REDIS_APPDATA_CONF_FILE:---dir /project/data --logfile /project/logs/log.txt --appendonly yes}
@@ -100,8 +102,8 @@ services:
   redis-appdata-test:
     image: redis:3.2
     volumes:
-      - ./docker_data/redis-appdata-test/data:/project/data
-      - ./docker_data/redis-appdata-test/logs:/project/logs
+      - ./docker_data/redis_appdata_test/data:/project/data
+      - ./docker_data/redis_appdata_test/logs:/project/logs
     ports:
       - "${TEST_REDIS_APPDATA_HOST:-127.0.0.1}:${TEST_REDIS_APPDATA_PORT:-6280}:6379"
     command: redis-server ${REDIS_APPDATA_CONF_FILE:---dir /project/data --logfile /project/logs/log.txt --appendonly yes}
@@ -152,7 +154,7 @@ services:
     working_dir: /project/catalog-api/
     networks:
       - testing
-    entrypoint: wait-for-it.sh -t 60 default-db-test:3306 -- wait-for-it.sh -t 60 sierra-db-test:5432 -- wait-for-it.sh -t 60 solr-test:8983 -- wait-for-it.sh -t 60 redis-appdata-test:6379 -- py.test
+    entrypoint: wait-for-it.sh -t 30 default-db-test:3306 -- wait-for-it.sh -t 30 sierra-db-test:5432 -- wait-for-it.sh -t 30 solr-test:8983 -- wait-for-it.sh -t 30 redis-appdata-test:6379 -- py.test
 
   manage-dev:
     build: .
