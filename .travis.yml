@@ -9,12 +9,15 @@ before_script:
   - mkdir docker_data/redis_appdata_test
   - mkdir docker_data/redis_appdata_test/logs
   - mkdir docker_data/redis_appdata_test/data
+  - mkdir docker_data/solr_test
+  - mkdir docker_data/solr_test/bibdata_data
   # - ./docker-compose.sh run --rm manage-test migrate --database=default
   # - ./docker-compose.sh run --rm manage-test migrate --database=sierra
 script:
   - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/logs/test.txt'" redis-appdata-test
   - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/data/test.txt'" redis-appdata-test
-
+  - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/solr/instances/solr/bibdata/data/test.txt'" solr-test
+  
 #script: ./docker-compose.sh run --rm test
 after_script:
   - ./docker-compose.sh run --rm --entrypoint="ls -al /project/" redis-appdata-test
@@ -23,4 +26,7 @@ after_script:
   - ls -al docker_data/redis_appdata_test/
   - ls -al docker_data/redis_appdata_test/logs/
   - ls -al docker_data/redis_appdata_test/data/
-  
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/solr/instances/solr/bibdata/" solr-test
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/solr/instances/solr/bibdata/data/" solr-test
+  - ls -al docker_data/solr_test/
+  - ls -al docker_data/solr_test/bibdata_data/
