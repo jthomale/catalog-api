@@ -5,8 +5,22 @@ services:
 
 before_script:
   - ./build_travis_settings.sh
+  - mkdir docker_data
+  - mkdir docker_data/redis_appdata_test
+  - mkdir docker_data/redis_appdata_test/logs
+  - mkdir docker_data/redis_appdata_test/data
   # - ./docker-compose.sh run --rm manage-test migrate --database=default
   # - ./docker-compose.sh run --rm manage-test migrate --database=sierra
 script:
-  - docker info
-  - id ${USER}
+  - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/logs/test.txt'" redis-appdata-test
+  - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/data/test.txt'" redis-appdata-test
+
+#script: ./docker-compose.sh run --rm test
+after_script:
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/" redis-appdata-test
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/logs/" redis-appdata-test
+  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/data/" redis-appdata-test
+  - ls -al docker_data/redis_appdata_test/
+  - ls -al docker_data/redis_appdata_test/logs/
+  - ls -al docker_data/redis_appdata_test/data/
+  
