@@ -14,9 +14,9 @@ before_script:
   # - ./docker-compose.sh run --rm manage-test migrate --database=default
   # - ./docker-compose.sh run --rm manage-test migrate --database=sierra
 script:
-  - ./docker-compose.sh run --rm redis-appdata-test "sh -c 'echo testing >> /project/logs/test.txt'" 
-  - ./docker-compose.sh run --rm redis-appdata-test "sh -c 'echo testing >> /project/data/test.txt'"
-  - ./docker-compose.sh run --rm solr-test "sh -c 'echo testing >> /project/solr/instances/solr/bibdata/data/test.txt'"
+  - ./docker-compose.sh run --rm -u redis --entrypoint="sh -c 'echo testing >> /project/logs/test.txt'" redis-appdata-test
+  - ./docker-compose.sh run --rm -u redis --entrypoint="sh -c 'echo testing >> /project/data/test.txt'" redis-appdata-test
+  - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/solr/instances/solr/bibdata/data/test.txt'" solr-test
   
 #script: ./docker-compose.sh run --rm test
 after_script:
