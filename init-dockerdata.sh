@@ -137,6 +137,8 @@ function show_summary {
 function warm_up_sierra_db_test {
   echo "Initializing PostgreSQL database for \`sierra-db-test\` service"
   local container=$(docker-compose run -u root -d sierra-db-test)
+  #container="${container##*$'\n'}"
+  container=$(echo "$container" | tail -1)
   printf "(waiting for database) ..."
   local limit=60
   local waited=0
