@@ -1,4 +1,7 @@
-FROM jthomale/base_py-postgres-mysql-jre:py27-jre7
+FROM python:2.7
+
+RUN apt-get update -qq && \
+    apt-get install -y libpq-dev python-dev mysql-client netcat openjdk-7-jre
 
 ARG userid=999
 ARG groupid=999
