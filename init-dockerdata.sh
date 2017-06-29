@@ -152,7 +152,7 @@ function warm_up_sierra_db_test {
   done
   echo "database created."
   echo "Stopping intermediate container."
-  docker stop $container && docker rm $container &> /dev/null
+  sleep 2; docker stop $container && docker rm $container &> /dev/null; sleep 2;
   echo "Changing ownership of pgdata directory to current user."
   docker-compose run --rm -u root --entrypoint="sh -c \"chown -R $USERID:$GROUPID /var/lib/postgresql/data\"" sierra-db-test
   echo "Done. Database initialized."
