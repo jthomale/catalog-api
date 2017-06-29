@@ -5,6 +5,7 @@ services:
 
 before_script:
   - ./build_travis_settings.sh
+  - ./docker-compose.sh build
   - ./init-dockerdata.sh test
   
 script: ./docker-compose.sh run --rm test
