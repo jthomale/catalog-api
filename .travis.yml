@@ -5,21 +5,6 @@ services:
 
 before_script:
   - ./build_travis_settings.sh
-  - ./init-dockerdata.sh redis-appdata-test solr-test
-script:
-  - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/logs/test.txt'" redis-appdata-test
-  - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/data/test.txt'" redis-appdata-test
-  - ./docker-compose.sh run --rm --entrypoint="sh -c 'echo testing >> /project/solr/instances/solr/bibdata/data/test.txt'" solr-test
+  - ./init-dockerdata.sh test
   
-#script: ./docker-compose.sh run --rm test
-after_script:
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/" redis-appdata-test
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/logs/" redis-appdata-test
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/data/" redis-appdata-test
-  - ls -al docker_data/redis_appdata_test/
-  - ls -al docker_data/redis_appdata_test/logs/
-  - ls -al docker_data/redis_appdata_test/data/
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/solr/instances/solr/bibdata/" solr-test
-  - ./docker-compose.sh run --rm --entrypoint="ls -al /project/solr/instances/solr/bibdata/data/" solr-test
-  - ls -al docker_data/solr_test/
-  - ls -al docker_data/solr_test/bibdata_data/
+script: ./docker-compose.sh run --rm test
